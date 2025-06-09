@@ -44,7 +44,7 @@ const TambahAnggota = () => {
       }
 
       alert('Anggota berhasil ditambahkan!');
-      navigate('manajemen-anggota'); // ganti sesuai route yang kamu pakai
+      navigate('/manajemen-anggota'); // ganti sesuai route yang kamu pakai
     } catch (err) {
       setError(err.message);
     } finally {
@@ -53,16 +53,16 @@ const TambahAnggota = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4">
+    <div className="min-h-screen bg-[#fefae0] py-12 px-4"> {/* Changed background color */}
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-[#2D1E17] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"> {/* Changed background color */}
+            <svg className="w-8 h-8 text-[#fefae0]" fill="none" stroke="currentColor" viewBox="0 0 24 24"> {/* Changed icon color */}
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold text-[#2D1E17] mb-2"> {/* Changed text color, removed gradient */}
             Tambah Anggota
           </h1>
           <p className="text-gray-600">Daftarkan anggota baru perpustakaan</p>
@@ -70,12 +70,12 @@ const TambahAnggota = () => {
 
         {/* Form Card */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 h-2"></div>
+          <div className="bg-[#4a2515] h-2"></div> {/* Changed background color */}
           
           <div className="p-8">
             {/* Error Alert */}
             {error && (
-              <div className="mb-6 p-4 bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-500 rounded-r-xl">
+              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl"> {/* Simplified background gradient */}
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
@@ -102,7 +102,7 @@ const TambahAnggota = () => {
                     required
                     value={formData.username}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 font-medium text-gray-900 placeholder-gray-500"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 focus:border-[#4a2515] transition-all duration-200 font-medium text-gray-900 placeholder-gray-500" // Changed focus colors
                     placeholder="Masukkan username"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -125,7 +125,7 @@ const TambahAnggota = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 font-medium text-gray-900 placeholder-gray-500"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 focus:border-[#4a2515] transition-all duration-200 font-medium text-gray-900 placeholder-gray-500" // Changed focus colors
                     placeholder="Masukkan email"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -148,7 +148,7 @@ const TambahAnggota = () => {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 font-medium text-gray-900 placeholder-gray-500"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 focus:border-[#4a2515] transition-all duration-200 font-medium text-gray-900 placeholder-gray-500" // Changed focus colors
                     placeholder="Masukkan password"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -169,7 +169,7 @@ const TambahAnggota = () => {
                     name="role"
                     value={formData.role}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 font-medium text-gray-900 appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 focus:border-[#4a2515] transition-all duration-200 font-medium text-gray-900 appearance-none cursor-pointer" // Changed focus colors
                   >
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
@@ -187,11 +187,11 @@ const TambahAnggota = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-3 focus:ring-blue-500/20 transform hover:scale-[1.02] transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="w-full bg-[#4a2515] text-white py-3 px-6 rounded-xl font-semibold hover:bg-[#3e1f0d] focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 transform hover:scale-[1.02] transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none" // Changed button background and hover colors
                 >
                   {loading ? (
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#fefae0] border-t-transparent"></div> {/* Changed spinner color */}
                       <span>Menyimpan...</span>
                     </div>
                   ) : (
@@ -210,7 +210,7 @@ const TambahAnggota = () => {
             <div className="mt-6 text-center">
               <button
                 onClick={() => navigate('/manajemen-anggota')}
-                className="text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200 flex items-center justify-center space-x-2 mx-auto"
+                className="text-gray-600 hover:text-[#4a2515] font-medium transition-colors duration-200 flex items-center justify-center space-x-2 mx-auto" // Changed hover color
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />

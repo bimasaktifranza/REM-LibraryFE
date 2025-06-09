@@ -125,9 +125,9 @@ export default function EditBuku() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#fefae0] flex items-center justify-center"> {/* Changed background color */}
         <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-[#4a2515] border-t-transparent mx-auto mb-4"></div> {/* Changed spinner color */}
           <p className="text-gray-600 font-medium">Loading data buku...</p>
         </div>
       </div>
@@ -135,11 +135,11 @@ export default function EditBuku() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-8 px-4">
+    <div className="min-h-screen bg-[#fefae0] py-8 px-4"> {/* Changed background color */}
       <div className="container mx-auto max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold text-[#2D1E17] mb-2"> {/* Changed text color, removed gradient */}
             Edit Buku
           </h1>
           <p className="text-gray-600">Perbarui informasi buku Anda</p>
@@ -147,12 +147,12 @@ export default function EditBuku() {
 
         {/* Main Form Card */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 h-2"></div>
+          <div className="bg-[#4a2515] h-2"></div> {/* Changed background color */}
           
           <div className="p-8">
             {/* Error Alert */}
             {serverError && (
-              <div className="mb-6 p-4 bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-500 rounded-r-xl">
+              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl"> {/* Simplified background gradient */}
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
@@ -178,7 +178,7 @@ export default function EditBuku() {
                     type="text"
                     value={judul}
                     onChange={(e) => setJudul(e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 font-medium text-gray-900"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 focus:border-[#4a2515] transition-all duration-200 font-medium text-gray-900" // Changed focus colors
                     placeholder="Masukkan judul buku"
                     required
                   />
@@ -201,7 +201,7 @@ export default function EditBuku() {
                     type="text"
                     value={pengarang}
                     onChange={(e) => setPengarang(e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 font-medium text-gray-900"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 focus:border-[#4a2515] transition-all duration-200 font-medium text-gray-900" // Changed focus colors
                     placeholder="Masukkan nama pengarang"
                     required
                   />
@@ -222,7 +222,7 @@ export default function EditBuku() {
                   id="deskripsi"
                   value={deskripsi}
                   onChange={(e) => setDeskripsi(e.target.value)}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 resize-none font-medium text-gray-900"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 focus:border-[#4a2515] transition-all duration-200 resize-none font-medium text-gray-900" // Changed focus colors
                   rows={4}
                   placeholder="Masukkan deskripsi buku (opsional)"
                 />
@@ -237,9 +237,9 @@ export default function EditBuku() {
                   {kategori.length === 0 ? (
                     <div className="text-center py-8">
                       <div className="animate-pulse flex justify-center items-center space-x-2">
-                        <div className="h-2 w-2 bg-blue-500 rounded-full animate-bounce"></div>
-                        <div className="h-2 w-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="h-2 w-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        <div className="h-2 w-2 bg-[#4a2515] rounded-full animate-bounce"></div> {/* Changed color */}
+                        <div className="h-2 w-2 bg-[#4a2515] rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div> {/* Changed color */}
+                        <div className="h-2 w-2 bg-[#4a2515] rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div> {/* Changed color */}
                       </div>
                       <p className="text-gray-500 mt-2">Memuat kategori...</p>
                     </div>
@@ -253,7 +253,7 @@ export default function EditBuku() {
                             value={cat.id}
                             checked={kategoriDipilih.includes(cat.id)}
                             onChange={handleKategoriChange}
-                            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition-colors duration-150"
+                            className="h-4 w-4 text-[#4a2515] focus:ring-[#4a2515] border-gray-300 rounded transition-colors duration-150" // Changed checkbox colors
                           />
                           <label 
                             htmlFor={`cat-${cat.id}`} 
@@ -271,7 +271,7 @@ export default function EditBuku() {
                     {kategoriDipilih.map((id) => {
                       const cat = kategori.find(c => c.id === id);
                       return cat ? (
-                        <span key={id} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <span key={id} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#d4c6a6] text-[#2D1E17]"> {/* Changed badge colors */}
                           {cat.name}
                         </span>
                       ) : null;
@@ -291,7 +291,7 @@ export default function EditBuku() {
                 </button>
                 <button
                   type="submit"
-                  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-3 focus:ring-blue-500/20 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl order-1 sm:order-2"
+                  className="px-8 py-3 bg-[#4a2515] text-white rounded-xl font-semibold hover:bg-[#3e1f0d] focus:outline-none focus:ring-3 focus:ring-[#4a2515]/20 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl order-1 sm:order-2" // Changed button background and hover colors
                 >
                   Simpan Perubahan
                 </button>

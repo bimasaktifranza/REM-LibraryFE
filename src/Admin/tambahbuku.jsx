@@ -1,55 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBook, FaArrowLeft, FaSave } from 'react-icons/fa';
-import "./index.css";
+import "./index.css"; // Ensure this CSS is still relevant for any custom styles, though Tailwind is primary.
 
-export default function tambahbuku() {
+export default function TambahBuku() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     author: '',
-    categoryId: '',  // note: pakai id kategori, bukan nama
+    categoryId: '', // note: pakai id kategori, bukan nama
+    description: '', // Added description to formData state for completeness
   });
 
   const [errors, setErrors] = useState({});
   const [categories, setCategories] = useState([]);
   const [serverError, setServerError] = useState(null);
 
-  // Ambil token dari localStorage (sesuaikan kalau kamu punya cara lain)
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-  if (!token) {
-    setServerError('Token tidak ditemukan. Silakan login ulang.');
-    return;
-  }
+    if (!token) {
+      setServerError('Token tidak ditemukan. Silakan login ulang.');
+      return;
+    }
 
-  fetch('https://rem-library.up.railway.app/categories?limit=1000', {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  })
-    .then(async (res) => {
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'Gagal mengambil kategori.');
-      }
-      return res.json();
+    fetch('https://rem-library.up.railway.app/categories?limit=1000', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
     })
-    .then((response) => {
-      if (Array.isArray(response.data)) {
-        setCategories(response.data);
-        setServerError(null);
-      } else {
+      .then(async (res) => {
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || 'Gagal mengambil kategori.');
+        }
+        return res.json();
+      })
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setCategories(response.data);
+          setServerError(null);
+        } else {
+          setCategories([]);
+          setServerError('Data kategori tidak valid.');
+        }
+      })
+      .catch((err) => {
+        setServerError(err.message);
         setCategories([]);
-        setServerError('Data kategori tidak valid.');
-      }
-    })
-    .catch((err) => {
-      setServerError(err.message);
-      setCategories([]);
-    });
-}, [token]);
+      });
+  }, [token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -81,7 +81,8 @@ export default function tambahbuku() {
     const payload = {
       title: formData.title,
       author: formData.author,
-      categoryId: parseInt(formData.categoryId),
+      description: formData.description,
+      categoryIds: [parseInt(formData.categoryId)],
     };
 
     fetch('https://rem-library.up.railway.app/books', {
@@ -101,7 +102,7 @@ export default function tambahbuku() {
       })
       .then(() => {
         alert('Buku berhasil ditambahkan!');
-        navigate('/books');
+        navigate('/manajemenbuku');
       })
       .catch((err) => {
         alert('Error: ' + err.message);
@@ -109,24 +110,24 @@ export default function tambahbuku() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <div className="container mx-auto px-6 py-8">
+    <div className="min-h-screen bg-[#fefae0] py-8 px-4"> {/* Changed background color */}
+      <div className="container mx-auto max-w-2xl">
         {/* Header Section */}
         <div className="mb-12">
           <div className="flex items-center gap-6 mb-6">
-            <Link 
-              to="/books" 
+            <Link
+              to="/manajemenbuku"
               className="group flex items-center justify-center w-12 h-12 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
             >
-              <FaArrowLeft className="text-gray-600 group-hover:text-indigo-600 transition-colors" />
+              <FaArrowLeft className="text-gray-600 group-hover:text-[#4a2515] transition-colors" /> {/* Changed hover color */}
             </Link>
-            
+
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <FaBook className="text-2xl text-white" />
+              <div className="w-16 h-16 bg-[#2D1E17] rounded-2xl flex items-center justify-center shadow-lg"> {/* Changed background color */}
+                <FaBook className="text-2xl text-[#fefae0]" /> {/* Changed icon color */}
               </div>
               <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold text-[#2D1E17]"> {/* Changed text color, removed gradient */}
                   Tambah Buku Baru
                 </h1>
                 <p className="text-gray-600 mt-2">Tambahkan buku baru ke dalam koleksi perpustakaan</p>
@@ -138,7 +139,7 @@ export default function tambahbuku() {
         {/* Error Server Alert */}
         {serverError && (
           <div className="mb-8 max-w-2xl mx-auto">
-            <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-2xl p-6 shadow-sm">
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-6 shadow-sm"> {/* Simplified background gradient */}
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-white text-sm font-bold">!</span>
@@ -156,9 +157,9 @@ export default function tambahbuku() {
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
             {/* Form Header */}
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-8">
-              <h2 className="text-2xl font-bold text-white mb-2">Informasi Buku</h2>
-              <p className="text-indigo-100">Lengkapi form di bawah untuk menambahkan buku baru</p>
+            <div className="bg-[#4a2515] p-8"> {/* Changed background color */}
+              <h2 className="text-2xl font-bold text-[#fefae0] mb-2">Informasi Buku</h2> {/* Changed text color */}
+              <p className="text-[#fefae0]/80">Lengkapi form di bawah untuk menambahkan buku baru</p> {/* Changed text color */}
             </div>
 
             {/* Form Content */}
@@ -177,15 +178,15 @@ export default function tambahbuku() {
                       value={formData.title}
                       onChange={handleChange}
                       className={`w-full px-6 py-4 border-2 rounded-2xl text-gray-800 text-lg transition-all duration-300 focus:outline-none ${
-                        errors.title 
-                          ? 'border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 bg-red-50' 
-                          : 'border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 hover:border-gray-300'
+                        errors.title
+                          ? 'border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 bg-red-50'
+                          : 'border-gray-200 focus:border-[#4a2515] focus:ring-4 focus:ring-[#d4c6a6] hover:border-gray-300' // Changed focus colors
                       }`}
                       placeholder="Masukkan judul buku yang akan ditambahkan"
                     />
                     {formData.title && (
                       <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center"> {/* Kept green for success */}
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -216,15 +217,15 @@ export default function tambahbuku() {
                       value={formData.author}
                       onChange={handleChange}
                       className={`w-full px-6 py-4 border-2 rounded-2xl text-gray-800 text-lg transition-all duration-300 focus:outline-none ${
-                        errors.author 
-                          ? 'border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 bg-red-50' 
-                          : 'border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 hover:border-gray-300'
+                        errors.author
+                          ? 'border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 bg-red-50'
+                          : 'border-gray-200 focus:border-[#4a2515] focus:ring-4 focus:ring-[#d4c6a6] hover:border-gray-300' // Changed focus colors
                       }`}
                       placeholder="Masukkan nama pengarang buku"
                     />
                     {formData.author && (
                       <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center"> {/* Kept green for success */}
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -242,6 +243,22 @@ export default function tambahbuku() {
                   )}
                 </div>
 
+                {/* Description Field */}
+                <div className="group">
+                    <label className="block text-gray-800 font-semibold mb-3 text-lg">
+                        Deskripsi
+                    </label>
+                    <textarea
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        className="w-full px-6 py-4 border-2 rounded-2xl text-gray-800 text-lg transition-all duration-300 focus:outline-none border-gray-200 focus:border-[#4a2515] focus:ring-4 focus:ring-[#d4c6a6] hover:border-gray-300 resize-y"
+                        placeholder="Masukkan deskripsi buku (opsional)"
+                        rows="4"
+                    ></textarea>
+                </div>
+
+
                 {/* Category Field */}
                 <div className="group">
                   <label className="block text-gray-800 font-semibold mb-3 text-lg">
@@ -254,9 +271,9 @@ export default function tambahbuku() {
                       value={formData.categoryId}
                       onChange={handleChange}
                       className={`w-full px-6 py-4 border-2 rounded-2xl text-gray-800 text-lg transition-all duration-300 focus:outline-none appearance-none cursor-pointer ${
-                        errors.categoryId 
-                          ? 'border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 bg-red-50' 
-                          : 'border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 hover:border-gray-300'
+                        errors.categoryId
+                          ? 'border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-100 bg-red-50'
+                          : 'border-gray-200 focus:border-[#4a2515] focus:ring-4 focus:ring-[#d4c6a6] hover:border-gray-300' // Changed focus colors
                       }`}
                     >
                       <option value="">Pilih kategori buku</option>
@@ -285,7 +302,7 @@ export default function tambahbuku() {
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-8">
                   <Link
-                    to="/books"
+                    to="/manajemenbuku"
                     className="flex-1 px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-2xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 font-semibold text-center flex items-center justify-center gap-3 shadow-sm hover:shadow-md"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,7 +312,7 @@ export default function tambahbuku() {
                   </Link>
                   <button
                     type="submit"
-                    className="flex-1 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 font-semibold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="flex-1 px-8 py-4 bg-[#4a2515] text-white rounded-2xl hover:bg-[#3e1f0d] transition-all duration-300 font-semibold flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     <FaSave className="text-lg" />
                     <span>Simpan Buku</span>
@@ -306,16 +323,16 @@ export default function tambahbuku() {
           </div>
 
           {/* Additional Info Card */}
-          <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200">
+          <div className="mt-8 bg-[#fcf7e8] rounded-2xl p-6 border border-[#d4c6a6]">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-8 h-8 bg-[#4a2515] rounded-full flex items-center justify-center">
+                <svg className="w-4 h-4 text-[#fefae0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
-                <h3 className="font-semibold text-blue-800 mb-1">Tips</h3>
-                <p className="text-blue-700 text-sm">Pastikan semua field yang bertanda (*) sudah diisi dengan benar sebelum menyimpan buku.</p>
+                <h3 className="font-semibold text-[#2D1E17] mb-1">Tips</h3>
+                <p className="text-gray-700 text-sm">Pastikan semua field yang bertanda (*) sudah diisi dengan benar sebelum menyimpan buku.</p>
               </div>
             </div>
           </div>
